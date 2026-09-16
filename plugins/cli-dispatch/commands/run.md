@@ -1,6 +1,6 @@
 ---
-description: Delegate a task to a worker via the deterministic runner (no LLM babysitter) and print the verdict summary
-argument-hint: <backend> "<prompt>" [--verify '<cmd>'] [--cleanup-if-clean] [more cli-dispatch-run flags]
+description: Delegate a task to the DeepSeek worker via the deterministic runner (no LLM babysitter) and print the verdict summary
+argument-hint: ds "<prompt>" [--verify '<cmd>'] [--cleanup-if-clean] [more cli-dispatch-run flags]
 allowed-tools: Bash
 ---
 
@@ -16,9 +16,9 @@ Best for mechanical delegations with a machine-checkable `--verify` command.
 # double quotes would split the prompt). Verified with a stub-binary harness.
 set -- $ARGUMENTS
 BACKEND="${1:-}"; PROMPT="${2:-}"; shift 2 2>/dev/null || true
-case "$BACKEND" in ds|ag|cx|oc|cp) ;; *)
-  echo "usage: /cli-dispatch:run <backend> \"<prompt>\" [--verify '<cmd>'] [--cleanup-if-clean] [more flags]"
-  echo "backend: ds | ag | cx | oc | cp     tip: /cli-dispatch:setup to install backends"
+case "$BACKEND" in ds) ;; *)
+  echo "usage: /cli-dispatch:run ds \"<prompt>\" [--verify '<cmd>'] [--cleanup-if-clean] [more flags]"
+  echo "backend: ds     (DeepSeek-only fork — the ag/cx/oc/cp backends were removed)"
   exit 1 ;; esac
 if [ -z "$PROMPT" ]; then
   echo "usage: /cli-dispatch:run <backend> \"<prompt>\" [flags]"
@@ -42,7 +42,7 @@ if ! command -v cli-dispatch-run >/dev/null 2>&1; then
     echo "cli-dispatch-run not found on PATH, and no plugin copy is usable."
     echo "If you just upgraded the plugin this is expected: the upgrade never re-runs install.sh."
     echo "Fix: re-run /cli-dispatch:setup (or scripts/install.sh) to reinstall the wrappers."
-    echo "Fallback: use /cli-dispatch:${BACKEND}-run, or call ${BACKEND}-agent directly."
+    echo "Fallback: use /cli-dispatch:ds-run, or call ds-agent directly."
     exit 1
   fi
 fi

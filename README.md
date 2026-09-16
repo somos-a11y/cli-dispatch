@@ -2,15 +2,19 @@
 
 > 🌐 **Languages:** **English** · [Türkçe](README.tr.md)
 
-**Use DeepSeek, Gemini, OpenAI Codex, OpenCode (via OpenRouter), or GitHub Copilot as delegated workers inside Claude Code.** Claude Code's built-in subagent tool only supports Anthropic models — cli-dispatch adds portable wrappers so you can hand tasks to any of the five from inside your existing `claude` session.
+> 🍴 **DeepSeek-only fork.** This is a fork of [rbinar/cli-dispatch](https://github.com/rbinar/cli-dispatch), trimmed to the **DeepSeek** backend only for [oncahistorias.org](https://oncahistorias.org). The Antigravity/Gemini, Codex/OpenAI, OpenCode/OpenRouter and GitHub Copilot backends have been removed from the command surface so Claude never reaches for a non-DeepSeek worker. See [FORK-NOTES.md](FORK-NOTES.md) for the exact divergence and how to sync with upstream.
 
-> ℹ️ **Multi-backend delegation hub.** Five worker backends — **DeepSeek** (`/cli-dispatch:ds-*`), **Antigravity/Gemini** (`/cli-dispatch:ag-run`, wrappers `ag-agent`/`ag-stream`), **Codex** (`/cli-dispatch:cx-run`, `cx-agent`/`cx-stream`), **OpenCode** (`/cli-dispatch:oc-run`, `oc-agent`/`oc-stream`), and **GitHub Copilot** (`/cli-dispatch:cp-run`, `cp-agent`/`cp-stream`). Pick which to install at setup. All five write to the same session layout, so `sessions`/`watch` work across all. The DeepSeek wrapper/config paths keep the `claude-ds` name (that backend's name).
+> The sections below this banner are inherited from upstream and still describe the original five-backend hub for reference — only the DeepSeek backend is actually present in this fork.
+
+**Use DeepSeek as a delegated worker inside Claude Code.** Claude Code's built-in subagent tool only supports Anthropic models — cli-dispatch adds portable wrappers so you can hand tasks to DeepSeek (`claude-ds`) from inside your existing `claude` session.
+
+> ℹ️ **DeepSeek delegation.** One worker backend — **DeepSeek** (`/cli-dispatch:ds-run`, wrappers `claude-ds`/`ds-agent`/`claude-ds-stream`), two models (`deepseek-v4-pro` workhorse, `deepseek-flash` fast/cheap). The deterministic runner is `/cli-dispatch:run ds "<task>" --verify '<cmd>'`.
 
 > 📝 **Write-up (Turkish):** [cli-dispatch: a plugin that makes Claude the boss and DeepSeek the worker](https://medium.com/@rbinar/cli-dispatch-claudea-patron-deepseek-e-i%CC%87%C5%9F%C3%A7i-rol%C3%BC-veren-bir-plugin-b232803581fc) — Medium
 
 ![cli-dispatch demo — start Claude Code in your project, then: install, /cli-dispatch:setup, delegate via /cli-dispatch:ds-run and the deterministic /cli-dispatch:run runner, check usage](assets/demo.gif)
 
-> **Demo** — install the plugin, run `/cli-dispatch:setup` to pick and configure your backend(s), then delegate tasks with `/cli-dispatch:ds-run` / `ag-run` / `cx-run` / `oc-run` / `cp-run`, or `/cli-dispatch:run <backend> "<task>" --verify '<cmd>'` for the deterministic, zero-babysitter path. The worker generates; Claude Code watches live and verifies.
+> **Demo** — install the plugin, run `/cli-dispatch:setup` to configure the DeepSeek backend, then delegate tasks with `/cli-dispatch:ds-run`, or `/cli-dispatch:run ds "<task>" --verify '<cmd>'` for the deterministic, zero-babysitter path. The worker generates; Claude Code watches live and verifies.
 
 ![cli-dispatch dashboard — live session list, subagent drill-down, worker session trace per backend](assets/dashboard.gif)
 

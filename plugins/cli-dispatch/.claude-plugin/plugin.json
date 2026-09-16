@@ -1,11 +1,11 @@
 {
   "name": "cli-dispatch",
   "version": "4.27.0",
-  "description": "Delegate tasks to the right worker CLI — multi-backend delegation hub. Backends: DeepSeek-powered Claude Code (claude-ds), Antigravity / Gemini (agy, ag-agent), OpenAI Codex CLI (codex, cx-agent), OpenCode via OpenRouter (opencode, oc-agent), and GitHub Copilot CLI (copilot, cp-agent). Setup-time backend selection, deterministic runner (cli-dispatch-run — worker + verify with zero LLM babysitter tokens), single-command ds/ag/cx/oc/cp-agent, session tracking (live monitoring + resume), read-only mode (Codex only — real OS-level sandbox; OpenCode/Copilot have no sandbox equivalent, isolation is via git worktree only), global MCP isolation, runtime/idle timeout safety net, fully-agentic tasks in isolated worktrees, optional auto-install of missing worker CLIs (`--install-missing`/`-InstallMissing`, opt-in).",
+  "description": "Delegate tasks to a DeepSeek worker CLI from inside Claude Code. DeepSeek-only fork of rbinar/cli-dispatch — the Antigravity/Gemini, Codex/OpenAI, OpenCode/OpenRouter and GitHub Copilot backends have been removed so the delegation surface names DeepSeek only. Wraps DeepSeek-powered Claude Code (claude-ds, ds-agent) with a deterministic runner (cli-dispatch-run — worker + verify, zero LLM babysitter tokens), session tracking (live monitoring + resume), runtime/idle timeout safety net, and fully-agentic tasks in isolated git worktrees.",
   "author": { "name": "rbinar", "url": "https://github.com/rbinar" },
-  "homepage": "https://github.com/rbinar/cli-dispatch",
-  "repository": "https://github.com/rbinar/cli-dispatch",
+  "homepage": "https://github.com/somos-a11y/cli-dispatch",
+  "repository": "https://github.com/somos-a11y/cli-dispatch",
   "license": "MIT",
   "category": "development",
-  "keywords": ["cli-dispatch", "delegation", "deepseek", "antigravity", "gemini", "codex", "openai", "opencode", "openrouter", "copilot", "github-copilot", "worker", "claude-code", "dashboard"]
+  "keywords": ["cli-dispatch", "delegation", "deepseek", "claude-ds", "worker", "claude-code", "dashboard"]
 }

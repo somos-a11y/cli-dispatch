@@ -4,14 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
+> **DeepSeek-only fork** (see [FORK-NOTES.md](FORK-NOTES.md)). This fork of rbinar/cli-dispatch
+> keeps only the **DeepSeek** backend. The Antigravity/Gemini, Codex, OpenCode and Copilot
+> per-backend command markdowns and the `ds-delegate` skill's multi-backend guidance were
+> removed so the delegation surface Claude reads names DeepSeek only. The shared diagnostic
+> scripts (`cli-dispatch-{status,doctor,balance,sessions}.sh`) and the `{ag,cx,oc,cp}-*`
+> plumbing scripts + their parser tests are intentionally left in place (they are not surfaced
+> to Claude), which keeps the diff small and syncable with upstream.
+
 `cli-dispatch` is a Claude Code **plugin** (not an npm package — there is no `package.json`,
 no build step, no bundler). It ships slash commands, a SessionStart hook, a skill, and
-standalone CLI scripts that let Claude Code delegate work to five external "worker" CLIs —
-DeepSeek (via `claude` pointed at DeepSeek's API), Antigravity/Gemini (`agy`), OpenAI Codex
-(`codex`), OpenCode (`opencode`, via OpenRouter), and GitHub Copilot (`copilot`) — since
-Claude Code's built-in subagent tool only supports Anthropic models. It ships **no subagent
-definitions**: the five `agents/*-runner.md` babysitters were deleted in 4.0.0 (see
-"The deterministic runner + escalation path" below).
+standalone CLI scripts that let Claude Code delegate work to an external DeepSeek "worker" CLI
+(`claude` pointed at DeepSeek's Anthropic-compatible API) — since Claude Code's built-in
+subagent tool only supports Anthropic models. It ships **no subagent definitions**: the
+`agents/*-runner.md` babysitters were deleted in 4.0.0 (see "The deterministic runner +
+escalation path" below).
 
 Everything the plugin installs lives under `plugins/cli-dispatch/`:
 - `commands/*.md` — slash commands (`/cli-dispatch:*`). Each is markdown with a fenced

@@ -11,6 +11,12 @@ import { fileURLToPath } from 'node:url'
 // status, 4.10.0 for the rest). The saving only holds while each markdown stays
 // thin AND keeps pointing at a script that actually exists — these tests guard
 // that pair, one table row per converted command.
+//
+// DeepSeek-only fork (see FORK-NOTES.md): the ag/cx/oc/cp per-backend command
+// markdowns were removed, so their rows are gone from this table. The shared
+// scripts (status/doctor/balance/sessions) are intentionally left 5-backend
+// internally — the aggregate command markdowns just pass `--backend deepseek`
+// (or the `deepseek` slug) so only DeepSeek surfaces to the user.
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const scriptsDir = path.resolve(here, '..')
@@ -36,30 +42,6 @@ const COMMANDS = [
     forbidden: [/```bash/, /command -v claude-ds/],
   },
   {
-    name: 'ag-status',
-    script: 'cli-dispatch-status.sh',
-    maxBytes: 1000,
-    forbidden: [/```bash/, /command -v ag-agent/],
-  },
-  {
-    name: 'cx-status',
-    script: 'cli-dispatch-status.sh',
-    maxBytes: 1000,
-    forbidden: [/```bash/, /command -v cx-agent/],
-  },
-  {
-    name: 'oc-status',
-    script: 'cli-dispatch-status.sh',
-    maxBytes: 1000,
-    forbidden: [/```bash/, /command -v oc-agent/],
-  },
-  {
-    name: 'cp-status',
-    script: 'cli-dispatch-status.sh',
-    maxBytes: 1000,
-    forbidden: [/```bash/, /command -v cp-agent/],
-  },
-  {
     name: 'doctor',
     script: 'cli-dispatch-doctor.sh',
     maxBytes: 1200, // was 9135
@@ -79,30 +61,6 @@ const COMMANDS = [
     forbidden: [/api\.deepseek\.com/],
   },
   {
-    name: 'ag-balance',
-    script: 'cli-dispatch-balance.sh',
-    maxBytes: 1400,
-    forbidden: [/```bash/, /language_server/],
-  },
-  {
-    name: 'cx-balance',
-    script: 'cli-dispatch-balance.sh',
-    maxBytes: 1400,
-    forbidden: [/```bash/, /\.codex/],
-  },
-  {
-    name: 'oc-balance',
-    script: 'cli-dispatch-balance.sh',
-    maxBytes: 1400,
-    forbidden: [/```bash/, /openrouter\.ai\/api/],
-  },
-  {
-    name: 'cp-balance',
-    script: 'cli-dispatch-balance.sh',
-    maxBytes: 1400,
-    forbidden: [/```bash/, /echo "== GitHub Copilot =="/],
-  },
-  {
     name: 'sessions',
     script: 'cli-dispatch-sessions.sh',
     maxBytes: 1200,
@@ -110,30 +68,6 @@ const COMMANDS = [
   },
   {
     name: 'ds-sessions',
-    script: 'cli-dispatch-sessions.sh',
-    maxBytes: 1200,
-    forbidden: [/```bash/, /CLI_DISPATCH_BACKEND_FILTER/],
-  },
-  {
-    name: 'ag-sessions',
-    script: 'cli-dispatch-sessions.sh',
-    maxBytes: 1200,
-    forbidden: [/```bash/, /CLI_DISPATCH_BACKEND_FILTER/],
-  },
-  {
-    name: 'cx-sessions',
-    script: 'cli-dispatch-sessions.sh',
-    maxBytes: 1200,
-    forbidden: [/```bash/, /CLI_DISPATCH_BACKEND_FILTER/],
-  },
-  {
-    name: 'oc-sessions',
-    script: 'cli-dispatch-sessions.sh',
-    maxBytes: 1200,
-    forbidden: [/```bash/, /CLI_DISPATCH_BACKEND_FILTER/],
-  },
-  {
-    name: 'cp-sessions',
     script: 'cli-dispatch-sessions.sh',
     maxBytes: 1200,
     forbidden: [/```bash/, /CLI_DISPATCH_BACKEND_FILTER/],
@@ -226,10 +160,6 @@ test('status + doctor pass the plugin root as an argument, not via env', () => {
 test('per-backend session commands pass their backend slug as an argument', () => {
   const expected = {
     'ds-sessions': 'deepseek',
-    'ag-sessions': 'antigravity',
-    'cx-sessions': 'codex',
-    'oc-sessions': 'opencode',
-    'cp-sessions': 'copilot',
   }
   for (const [name, backend] of Object.entries(expected)) {
     const preExec = read(path.join(commandsDir, `${name}.md`)).match(/^!`([^`]+)`/m)[1]
@@ -244,10 +174,6 @@ test('per-backend session commands pass their backend slug as an argument', () =
 test('per-backend status commands pass their backend slug as a flag', () => {
   const expected = {
     'ds-status': 'deepseek',
-    'ag-status': 'antigravity',
-    'cx-status': 'codex',
-    'oc-status': 'opencode',
-    'cp-status': 'copilot',
   }
   for (const [name, backend] of Object.entries(expected)) {
     const preExec = read(path.join(commandsDir, `${name}.md`)).match(/^!`([^`]+)`/m)[1]
@@ -262,10 +188,6 @@ test('per-backend status commands pass their backend slug as a flag', () => {
 test('per-backend balance commands pass their backend slug as a flag', () => {
   const expected = {
     'ds-balance': 'deepseek',
-    'ag-balance': 'antigravity',
-    'cx-balance': 'codex',
-    'oc-balance': 'opencode',
-    'cp-balance': 'copilot',
   }
   for (const [name, backend] of Object.entries(expected)) {
     const preExec = read(path.join(commandsDir, `${name}.md`)).match(/^!`([^`]+)`/m)[1]
@@ -305,6 +227,10 @@ test('cli-dispatch-clean-schedule.sh defaults to status when given no action', (
     rmSync(home, { recursive: true, force: true })
   }
 })
+
+// The shared status/doctor/balance scripts are intentionally left 5-backend
+// internally (only the command markdowns scope to DeepSeek), so these guards on
+// the SCRIPTS are unchanged from upstream.
 
 test('cli-dispatch-doctor.sh probes every backend and never prints a key value', () => {
   const script = read(path.join(scriptsDir, 'cli-dispatch-doctor.sh'))

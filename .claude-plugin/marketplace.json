@@ -1,16 +1,16 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "cli-dispatch",
-  "description": "cli-dispatch — görevi uygun işçi CLI'a delege eden çok-backend hub: DeepSeek/claude-ds, Antigravity-Gemini/ag-agent, OpenAI Codex CLI/cx-agent, OpenCode/OpenRouter/oc-agent ve GitHub Copilot CLI/cp-agent.",
-  "owner": { "name": "rbinar", "url": "https://github.com/rbinar" },
+  "description": "cli-dispatch (DeepSeek-only fork) — delegate tasks to a DeepSeek worker CLI (claude-ds / ds-agent) from inside Claude Code. The upstream multi-backend hub's Antigravity/Gemini, Codex, OpenCode and Copilot backends have been removed.",
+  "owner": { "name": "somos-a11y", "url": "https://github.com/somos-a11y" },
   "metadata": { "version": "4.27.0" },
   "plugins": [
     {
       "name": "cli-dispatch",
-      "description": "Görevleri doğru işçi CLI'a delege eden çok-backend hub. DeepSeek/claude-ds, Antigravity-Gemini/ag-agent, OpenAI Codex CLI/cx-agent, OpenCode via OpenRouter/oc-agent ve GitHub Copilot CLI/cp-agent backend'lerini destekler; setup sırasında backend seçimi, deterministik runner (cli-dispatch-run — sıfır LLM babysitter token'ıyla worker + verify) ve tek komutluk ds/ag/cx/oc/cp-agent akışı sunar. Session takibi (canlı izleme + resume), Codex'e özel gerçek read-only sandbox notu, global MCP izolasyonu, runtime/idle timeout güvenlik ağı, worktree izolasyonu ve isteğe bağlı eksik CLI otomatik kurulumu içerir.",
+      "description": "Delegate tasks to a DeepSeek worker CLI from inside Claude Code. DeepSeek-only fork of rbinar/cli-dispatch: only the DeepSeek backend (claude-ds, ds-agent) remains — Antigravity/Gemini, Codex/OpenAI, OpenCode/OpenRouter and GitHub Copilot were removed. Deterministic runner (cli-dispatch-run — worker + verify with zero LLM babysitter tokens), single-command ds-agent, session tracking (live monitoring + resume), runtime/idle timeout safety net, and fully-agentic tasks in isolated git worktrees.",
       "version": "4.27.0",
       "category": "development",
-      "keywords": ["cli-dispatch", "delegation", "deepseek", "antigravity", "gemini", "codex", "openai", "opencode", "openrouter", "copilot", "github-copilot", "worker", "claude-code", "dashboard"],
+      "keywords": ["cli-dispatch", "delegation", "deepseek", "claude-ds", "worker", "claude-code", "dashboard"],
       "source": "./plugins/cli-dispatch"
     }
   ]
