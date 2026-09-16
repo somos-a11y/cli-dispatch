@@ -152,7 +152,7 @@ function buildDeepseek(meta) {
     throw new Error('buildTakeoverCommand: deepseek requires DEEPSEEK_API_KEY (env or config)')
   }
   const dsModel = process.env.DS_MODEL || 'deepseek-v4-pro'
-  const dsFlashModel = process.env.DS_FLASH_MODEL || 'deepseek-v4-flash'
+  const dsFlashModel = process.env.DS_FLASH_MODEL || 'deepseek-flash'
   return {
     cmd: 'claude',
     args: ['--resume', meta.sessionId, '--add-dir', meta.cwd],

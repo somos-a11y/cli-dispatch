@@ -81,7 +81,7 @@ For DeepSeek and OpenCode, since you paste the key yourself, setup **auto-opens 
 # ~/.config/cli-dispatch/config
 DEEPSEEK_API_KEY="sk-..."     # your own DeepSeek key
 DS_MODEL="deepseek-v4-pro"
-DS_FLASH_MODEL="deepseek-v4-flash"
+DS_FLASH_MODEL="deepseek-flash"
 ```
 
 > Want a different editor? Set `CLI_DISPATCH_EDITOR` (e.g. `CLI_DISPATCH_EDITOR="code"`; the legacy `CLAUDE_DS_EDITOR` is still honored). If auto-open fails, open the file manually: `${EDITOR:-nano} ~/.config/cli-dispatch/config`.

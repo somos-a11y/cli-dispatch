@@ -403,7 +403,7 @@ $branch = (git -C "$cwd" rev-parse --abbrev-ref HEAD 2>$null)
 $modelCfg = if ($cfg.ContainsKey("DS_MODEL")) { $cfg["DS_MODEL"] } else { "" }
 $flashCfg = if ($cfg.ContainsKey("DS_FLASH_MODEL")) { $cfg["DS_FLASH_MODEL"] } else { "" }
 $model = if (-not [string]::IsNullOrWhiteSpace($modelCfg)) { $modelCfg } elseif ($env:DS_MODEL) { $env:DS_MODEL } else { "deepseek-v4-pro" }
-$flash = if (-not [string]::IsNullOrWhiteSpace($flashCfg)) { $flashCfg } elseif ($env:DS_FLASH_MODEL) { $env:DS_FLASH_MODEL } else { "deepseek-v4-flash" }
+$flash = if (-not [string]::IsNullOrWhiteSpace($flashCfg)) { $flashCfg } elseif ($env:DS_FLASH_MODEL) { $env:DS_FLASH_MODEL } else { "deepseek-flash" }
 
 $originalLocation = Get-Location
 

@@ -77,7 +77,7 @@ DeepSeek ve OpenCode için, key'i kendin yapıştırdığından, key hâlâ boş
 # ~/.config/cli-dispatch/config
 DEEPSEEK_API_KEY="sk-..."     # kendi DeepSeek key'in
 DS_MODEL="deepseek-v4-pro"
-DS_FLASH_MODEL="deepseek-v4-flash"
+DS_FLASH_MODEL="deepseek-flash"
 ```
 
 > Farklı bir editör istiyorsan `CLI_DISPATCH_EDITOR` ortam değişkenini ayarla (ör. `CLI_DISPATCH_EDITOR="code"`; eski `CLAUDE_DS_EDITOR` da hâlâ geçerli). Otomatik açma başarısız olursa dosyayı elle aç: `${EDITOR:-nano} ~/.config/cli-dispatch/config`.

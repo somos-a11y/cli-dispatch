@@ -123,7 +123,7 @@ test('deepseek: env has exactly the 7 required keys with explicit env values', (
   )
 })
 
-test('deepseek: falls back to deepseek-v4-pro / deepseek-v4-flash when DS_MODEL/DS_FLASH_MODEL unset', () => {
+test('deepseek: falls back to deepseek-v4-pro / deepseek-flash when DS_MODEL/DS_FLASH_MODEL unset', () => {
   withEnv(
     { DEEPSEEK_API_KEY: 'some-key', DS_MODEL: undefined, DS_FLASH_MODEL: undefined },
     () => {
@@ -131,8 +131,8 @@ test('deepseek: falls back to deepseek-v4-pro / deepseek-v4-flash when DS_MODEL/
       assert.equal(result.env.ANTHROPIC_MODEL, 'deepseek-v4-pro')
       assert.equal(result.env.ANTHROPIC_DEFAULT_OPUS_MODEL, 'deepseek-v4-pro')
       assert.equal(result.env.ANTHROPIC_DEFAULT_SONNET_MODEL, 'deepseek-v4-pro')
-      assert.equal(result.env.ANTHROPIC_DEFAULT_HAIKU_MODEL, 'deepseek-v4-flash')
-      assert.equal(result.env.CLAUDE_CODE_SUBAGENT_MODEL, 'deepseek-v4-flash')
+      assert.equal(result.env.ANTHROPIC_DEFAULT_HAIKU_MODEL, 'deepseek-flash')
+      assert.equal(result.env.CLAUDE_CODE_SUBAGENT_MODEL, 'deepseek-flash')
     }
   )
 })
